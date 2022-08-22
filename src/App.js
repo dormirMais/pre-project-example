@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import styled from 'styled-components';
-import { useState } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
 
 const ChnageValueButton = styled.button`
   display: inline-flex;
@@ -23,27 +24,24 @@ const ButtonWrapper = styled.div`
 `;
 
 function App() {
-  const [result, setResult] = useState(0);
-
-  const handlePlus = () => {
-    setResult((curr) => curr + 1);
-  };
-
-  const handleMinus = () => {
-    setResult((curr) => curr - 1);
-  };
+  const counter = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <span>{result}</span>
+        <span>{counter}</span>
         <div className="buttonBox">
           <ButtonWrapper>
-            <ChnageValueButton onClick={handlePlus}>+</ChnageValueButton>
+            <ChnageValueButton onClick={() => dispatch({ type: 'INCREMENT' })}>
+              +
+            </ChnageValueButton>
           </ButtonWrapper>
           <ButtonWrapper>
-            <ChnageValueButton onClick={handleMinus}>-</ChnageValueButton>
+            <ChnageValueButton onClick={() => dispatch({ type: 'DECREMENT' })}>
+              -
+            </ChnageValueButton>
           </ButtonWrapper>
         </div>
       </header>
